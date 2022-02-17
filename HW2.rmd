@@ -1,0 +1,97 @@
+---
+title: "HW2_Balasubramanian_Venkataraman"
+author: "Venkataraman Balasubramanian"
+date: "2/16/2022"
+output: html_document
+
+knit: (function(input_file, encoding) {
+  out_dir <- 'docs';
+  rmarkdown::render(input_file,
+ encoding=encoding,
+ output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+This dynamic chart analyzes the stock price of the FANG stocks from Jan 1st 2000 to Dec 31st 2016. This is a time series chart and the data source is FANG dataset from tidyquant package. The time series chart shows the date and the closing stock price 
+
+```{r, message=FALSE, warning=FALSE}
+library(plotly)
+library(tidyverse)
+library(tidyquant)
+library(ggplot2)
+
+data("FANG") 
+AMZN <- tq_get("AMZN", get = "stock.prices", from = "2000-01-01", to = "2016-12-31")
+
+p <- AMZN %>%
+    ggplot(aes(x = date, y = adjusted)) +
+    geom_line(color = palette_light()[[1]]) + 
+    scale_y_continuous() +
+    labs(title = "AMZN Line Chart", 
+         subtitle = "Continuous Scale", 
+         y = "Closing Price", x = "") + 
+    theme_tq()
+
+ggplotly(p)
+
+```
+```{r, message=FALSE, warning=FALSE}
+
+GOOG <- tq_get("GOOG", get = "stock.prices", from = "2000-01-01", to = "2016-12-31")
+
+p <- GOOG %>%
+    ggplot(aes(x = date, y = adjusted)) +
+    geom_line(color = palette_light()[[2]]) + 
+    scale_y_continuous() +
+    labs(title = "GOOG Line Chart", 
+         subtitle = "Continuous Scale", 
+         y = "Closing Price", x = "") + 
+    theme_tq()
+
+ggplotly(p)
+
+```
+
+```{r, message=FALSE, warning=FALSE}
+
+FB <- tq_get("FB", get = "stock.prices", from = "2000-01-01", to = "2016-12-31")
+
+p <- FB %>%
+    ggplot(aes(x = date, y = adjusted)) +
+    geom_line(color = palette_light()[[3]]) + 
+    scale_y_continuous() +
+    labs(title = "FB Line Chart", 
+         subtitle = "Continuous Scale", 
+         y = "Closing Price", x = "") + 
+    theme_tq()
+
+ggplotly(p)
+
+```
+
+```{r, message=FALSE, warning=FALSE}
+
+NFLX <- tq_get("NFLX", get = "stock.prices", from = "2000-01-01", to = "2016-12-31")
+
+p <- NFLX %>%
+    ggplot(aes(x = date, y = adjusted)) +
+    geom_line(color = palette_light()[[4]]) + 
+    scale_y_continuous() +
+    labs(title = "NFLX Line Chart", 
+         subtitle = "Continuous Scale", 
+         y = "Closing Price", x = "") + 
+    theme_tq()
+
+ggplotly(p)
+
+```
